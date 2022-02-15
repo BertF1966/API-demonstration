@@ -7,7 +7,7 @@ const app  = express();
 app.get('/api/topics', getTopics);
 
 app.get('/api/articles/:article_id', getArticles);
-console.log('in app')
+// console.log('in app')
 app.all('/api/*', (req, res) => {
     res.status(404).send({msg: 'Path not found'});
 });
