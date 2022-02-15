@@ -3,11 +3,9 @@ const app = require("../app");
 const data = require("../db/data/test-data");
 const seed = require("../db/seeds/seed");
 const db = require("../db/connection");
-const topics = require("../db/data/test-data/topics");
 
-afterAll(() => {
-  if (db.end) db.end();
-});
+afterAll(() => db.end()
+);
 
 beforeEach(() => seed(data));
 
@@ -46,16 +44,14 @@ describe("GET api/topics", () => {
 });
 
 describe("GET api/articles/:article_id", () => {
-  test("", () => {
-    test("status 200 - responds with an array o objects", () => {
+  test("status 200 - responds with an array of objects", () => {
       return request(app)
-        .get("/api/articles/:article_id")
+        .get("/api/articles/3")
         .expect(200)
-        .then(({ body: { articles } }) => {
-          console.log(articles);
-          expect(articles).toHaveLength(3);
+        // .then(({ body: { articles } }) => {
+        //   console.log(articles);
+        //   expect(articles).toHaveLength(1);
         });
     });
-  });
-});
+  // });
 

@@ -1,10 +1,12 @@
 const db = require('../db/connection');
 
-const fetchArticles = () => {
+const fetchArticles = (articleId) => {
+    console.log('in model')
     return db
-    .query(`SELECT * FROM articles;`)
+    .query(`SELECT * FROM articles WHERE article_id = $1;`, [articleId])
     .then(({rows}) => {
-        return rows;
+        console.log(rows[0])
+        return rows[0];
     })
 }
 
