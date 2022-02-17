@@ -105,13 +105,22 @@ describe("PATCH api/articles/article_id", () => {
         );
       });
   });
-  test.only("status 400 - responds with bad request when not receiving correctly formatted object", () => {
+  test("status 400 - responds with bad request when not receiving correctly formatted object", () => {
     return request(app)
       .patch("/api/articles/3")
-      .send({inc_votes:'q', test: 'test'})
+      .send({ inc_votes: "q", test: "test" })
       .expect(400)
       .then(({ body: { msg } }) => {
-        expect(msg).toBe('bad request')
+        expect(msg).toBe("bad request");
+      });
+  });
+  test.only("status 404 - responds with not found if article doesnt exist", () => {
+    return request(app)
+      .patch("/api/articles/9999")
+      .send({ inc_votes: 30 })
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Article not found");
       });
   });
 });
