@@ -87,3 +87,22 @@ describe("GET api/articles/:article_id", () => {
     });
   });
 
+  describe('PATCH api/articles/article_id', () => {
+    test('status 201 - responds with Patch accepted', () => {
+      return request(app)
+      .patch("/api/articles/3")
+      .expect(201)
+      .then(({ body: { article } }) => {
+        expect(article).toEqual(
+          expect.objectContaining({
+            author: expect.any(String),
+            title: expect.any(String),
+            article_id: expect.any(Number),
+            body: expect.any(String),
+            created_at: expect.any(String),
+            votes: expect.any(Number)
+          })
+        );
+      });
+    })
+  });
