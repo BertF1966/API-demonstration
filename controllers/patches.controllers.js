@@ -1,10 +1,11 @@
-const {fetchPatches} = require('../models/patches.models')
+const {updateArticles} = require('../models/patches.models')
 
-exports.postPatches = (req, res, next) => {
+exports.patchArticles = (req, res, next) => {
   const { article_id: articleId } = req.params;
-  fetchPatches()
-  .then(() => {
-    res.status(201).send()
+  const {inc_votes} = req.body;
+  updateArticles(articleId, inc_votes)
+  .then((article) => {
+    res.status(200).send({article})
   })
   .catch((err) => {
     next(err)
