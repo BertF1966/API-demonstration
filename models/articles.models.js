@@ -1,14 +1,13 @@
-const db = require('../db/connection');
+const db = require("../db/connection");
 
-const fetchArticles = (articleId) => {
-    // console.log('in model')
-    return db
+exports.fetchArticles = (articleId) => {
+  return db
     .query(`SELECT * FROM articles WHERE article_id = $1;`, [articleId])
-    .then(({rows}) => {
-        // console.log(rows[0])
-        return rows[0];
-    })
-}
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "Article not found" });
+      }
 
-module.exports = fetchArticles;
-
+      return rows[0];
+    });
+};
