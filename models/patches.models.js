@@ -9,9 +9,9 @@ exports.updateArticles = (articleId, inc_votes) => {
       [inc_votes, articleId]
     )
     .then((result) => {
-        if (rows.length === 0) {
-            return Promise.reject({})
-        }
+      if (rows.length === 0) {
+        return Promise.reject({ status: err.status, msg: msg.status });
+      }
       console.log(result.rows);
       return result.rows[0];
     });
