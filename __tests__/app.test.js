@@ -114,7 +114,7 @@ describe("PATCH api/articles/article_id", () => {
         expect(msg).toBe("bad request");
       });
   });
-  test.only("status 404 - responds with not found if article doesnt exist", () => {
+  test("status 404 - responds with not found if article doesnt exist", () => {
     return request(app)
       .patch("/api/articles/9999")
       .send({ inc_votes: 30 })

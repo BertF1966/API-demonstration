@@ -1,4 +1,3 @@
-const { rows } = require("pg/lib/defaults");
 const db = require("../db/connection");
 
 exports.updateArticles = (articleId, inc_votes) => {
@@ -9,10 +8,9 @@ exports.updateArticles = (articleId, inc_votes) => {
       [inc_votes, articleId]
     )
     .then((result) => {
-      if (rows.length === 0) {
-        return Promise.reject({ status: err.status, msg: msg.status });
+      if (result.rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "Article not found" });
       }
-      console.log(result.rows);
       return result.rows[0];
     });
 };
