@@ -52,7 +52,7 @@ describe("GET api/articles/:article_id", () => {
           expect.objectContaining({
             author: expect.any(String),
             title: expect.any(String),
-            article_id: expect.any(Number),
+            article_id: 3,
             body: expect.any(String),
             created_at: expect.any(String),
             votes: expect.any(Number),
@@ -105,10 +105,19 @@ describe("PATCH api/articles/article_id", () => {
         );
       });
   });
-  test("status 400 - responds with bad request when not receiving correctly formatted object", () => {
+  test.only("status 400 - responds with bad request when not receiving correctly formatted object", () => {
     return request(app)
       .patch("/api/articles/3")
-      .send({ inc_votes: "q", test: "test" })
+      .send({ inc_votes: "q"})
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("bad request");
+      });
+  });
+  test.only("status 400 - responds with bad request when not receiving correctly formatted object", () => {
+    return request(app)
+      .patch("/api/articles/4")
+      .send({ inc_vote: "test"})
       .expect(400)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("bad request");

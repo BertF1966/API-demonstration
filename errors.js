@@ -2,6 +2,7 @@ const { rows } = require("pg/lib/defaults");
 
 exports.handlePsqlErrors = (err, req, res, next) => {
   if (err.code === "22P02") {
+    console.log(err.code)
     res.status(400).send({ msg: "bad request" });
   } else {
     next(err);
