@@ -18,6 +18,8 @@ app.get("/api/articles", getArticles);
 
 app.get("/api/articles/:article_id", getArticleById);
 
+app.get('/api/articles/:article_id/comments', getComments)
+
 app.patch('/api/articles/:article_id', patchArticles);
 
 app.all("/api/*", (req, res) => {
