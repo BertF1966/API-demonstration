@@ -59,6 +59,7 @@ describe("GET api/articles/:article_id", () => {
           })
         );
       });
+ 
   });
   test("status 404 - responds with path not found for incorrect path", () => {
     return request(app)
@@ -130,6 +131,67 @@ describe("PATCH api/articles/article_id", () => {
       .expect(404)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("Article not found");
+      });
+  });
+
+  });
+  test("status 404 - responds with path not found for incorrect path", () => {
+    return request(app)
+      .get("/api/articlez")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Path not found");
+      });
+  });
+  test("status 400 - responds with bad request for invalid article ID", () => {
+    return request(app)
+      .get("/api/articles/q")
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("bad request");
+      });
+  });
+  test("status 404 - for valid search but non existent article", () => {
+    return request(app)
+      .get("/api/articles/9999")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Article not found");
+      });
+  });
+});
+
+describe("GET api/users", () => {
+  test("status 200 - responds with an array of test objects", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body: { users } }) => {
+        expect(users).toHaveLength(4);
+      });
+  });
+  test("status 404 - responds with path not found for incorrect path", () => {
+    return request(app)
+      .get("/api/user")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Path not found");
+      });
+  });
+  test("correct path returns array of objects with properties of username,name and avatar_url ", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body: { users } }) => {
+        users.forEach((user) => {
+          expect(user).toEqual(
+            expect.objectContaining({
+              username: expect.any(String),
+              name: expect.any(String),
+              avatar_url: expect.any(String),
+            })
+          );
+        });
       });
   });
 });
