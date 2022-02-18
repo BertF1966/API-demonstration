@@ -98,7 +98,7 @@ describe("PATCH api/articles/article_id", () => {
           expect.objectContaining({
             author: expect.any(String),
             title: expect.any(String),
-            article_id: expect.any(Number),
+            article_id: 3,
             body: expect.any(String),
             created_at: expect.any(String),
             votes: 50,
@@ -159,7 +159,7 @@ describe("PATCH api/articles/article_id", () => {
         expect(msg).toBe("Article not found");
       });
   });
-});
+
 
 describe("GET api/users", () => {
   test("status 200 - responds with an array of test objects", () => {
