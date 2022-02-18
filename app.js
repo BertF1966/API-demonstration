@@ -4,7 +4,7 @@ const { getArticleById } = require("./controllers/articleId.controllers");
 const { getArticles } = require("./controllers/articles.controllers");
 const { patchArticles } = require("./controllers/patches.controllers");
 const { getUsers } = require("./controllers/users.controllers");
-const { getCommentCount } = require("./controllers/commentCount.controllers");
+
 
 
 const { handlePsqlErrors, handleCustomErrors } = require("./errors");
@@ -22,7 +22,6 @@ app.get("/api/articles/:article_id", getArticleById);
 
 app.patch('/api/articles/:article_id', patchArticles);
 
-app.get('/api/articles/:article_id?', getCommentCount);
 
 app.all("/api/*", (req, res) => {
   res.status(404).send({ msg: "Path not found" });
