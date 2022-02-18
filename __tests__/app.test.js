@@ -105,7 +105,7 @@ describe("PATCH api/articles/article_id", () => {
         );
       });
   });
-  test.only("status 400 - responds with bad request when not receiving correctly formatted object", () => {
+  test("status 400 - responds with bad request when not receiving correctly formatted object", () => {
     return request(app)
       .patch("/api/articles/3")
       .send({ inc_votes: "q"})
@@ -114,10 +114,10 @@ describe("PATCH api/articles/article_id", () => {
         expect(msg).toBe("bad request");
       });
   });
-  test.only("status 400 - responds with bad request when not receiving correctly formatted object", () => {
+  test("status 400 - responds with bad request when not receiving correctly formatted object", () => {
     return request(app)
-      .patch("/api/articles/4")
-      .send({ inc_vote: "test"})
+      .patch("/api/articles/3")
+      .send({ test: "test"})
       .expect(400)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("bad request");
