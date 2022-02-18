@@ -160,3 +160,9 @@ describe("GET api/articles", () => {
       });
   });
 });
+
+describe('GET api/articles/:article_id (comment count)', () => {
+  test('status 200 - responds with ', () => {
+
+  })
+});
