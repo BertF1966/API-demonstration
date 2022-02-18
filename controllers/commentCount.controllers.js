@@ -1,15 +1,14 @@
+const {fetchCommentCount} = require('../models/commentCount.models')
 
+exports.getCommentCount = (req, res, next) => {
+    const { article_id: articleId} = req.params;
+    fetchCommentCount(articleId)
+    .then((article) => {
+        res.status(200).send({article});
+    
+    })
+    .catch((err) => {
+        next(err);
+    })
+}
 
-
-
-// const { fetchArticles } = require("../models/articles.models.js");
-
-// exports.getArticles = (req, res, next) => {
-//     fetchArticles()
-//     .then((articles) => {
-//       res.status(200).send({ articles });
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// };

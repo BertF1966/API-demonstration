@@ -1,15 +1,15 @@
+const db = require('../db/connection');
+
+exports.fetchCommentCount = (articleId) => {
+    return db 
+    .query(`SELECT * from articles WHERE article_Id = $1;`, [articleId])
+    .then(({rows}) => {
+        if (rows.length === 0) {
+            return Promise.reject({status: 400, msg: 'Article not found'});
+        }
+        return rows[0];
+    })
+}
 
 
 
-
-// const { fetchArticles } = require("../models/articles.models.js");
-
-// exports.getArticles = (req, res, next) => {
-//     fetchArticles()
-//     .then((articles) => {
-//       res.status(200).send({ articles });
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// };
