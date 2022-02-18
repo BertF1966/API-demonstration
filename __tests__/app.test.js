@@ -120,3 +120,43 @@ describe("GET api/users", () => {
       });
   });
 });
+
+describe("GET api/articles", () => {
+  test("status 200 - responds with an array of test objects", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toHaveLength(12);
+      });
+  });
+  test("status 404 - responds with path not found for incorrect path", () => {
+    return request(app)
+      .get("/api/article")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Path not found");
+      });
+  });
+  test("correct path returns array of objects with properties of title, topic, author, body, created_at and votes ", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        articles.forEach((article) => {
+          expect(article).toEqual(
+            expect.objectContaining({
+              article_id: expect.any(Number),
+              title: expect.any(String),
+              topic: expect.any(String),
+              author: expect.any(String),
+              body: expect.any(String),
+              created_at: expect.any(String),
+              votes: expect.any(Number),
+
+            })
+          );
+        });
+      });
+  });
+});
