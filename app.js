@@ -4,6 +4,7 @@ const { getArticleById } = require("./controllers/articleId.controllers");
 const { getArticles } = require("./controllers/articles.controllers");
 const { patchArticles } = require("./controllers/patches.controllers");
 const { getUsers } = require("./controllers/users.controllers");
+const { getComments} = require('./controllers/comments.controllers');
 
 const { handlePsqlErrors, handleCustomErrors } = require("./errors");
 const app = express();
