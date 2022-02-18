@@ -133,7 +133,6 @@ describe("PATCH api/articles/article_id", () => {
         expect(msg).toBe("Article not found");
       });
   });
-
   });
   test("status 404 - responds with path not found for incorrect path", () => {
     return request(app)
@@ -195,3 +194,4 @@ describe("GET api/users", () => {
       });
   });
 });
+
