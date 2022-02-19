@@ -70,7 +70,7 @@ describe("GET api/articles/:article_id", () => {
   });
   test("status 400 - responds with bad request for invalid article ID", () => {
     return request(app)
-      .get("/api/articles/q")
+      .get("/api/articles/q/comments")
       .expect(400)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("bad request");
@@ -295,6 +295,30 @@ describe("GET api/articles/article_id/comments", () => {
       .expect(404)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("Article not found");
+      });
+  });
+});
+
+describe("GET api/articles (comment count)", () => {
+  test("status 200 - responds with array of objects with the added comment_count row", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        articles.forEach((article) => {
+          expect(article).toEqual(
+            expect.objectContaining({
+              article_id: expect.any(Number),
+              title: expect.any(String),
+              topic: expect.any(String),
+              author: expect.any(String),
+              body: expect.any(String),
+              created_at: expect.any(String),
+              votes: expect.any(Number),
+              comment_count: expect.any(String)
+            })
+          );
+        });
       });
   });
 });
