@@ -3,10 +3,10 @@ const db = require("../db/connection");
 exports.updateArticles = (articleId, inc_votes) => {
   
   return db
-  .query(
-    `UPDATE articles SET votes = votes + $1 
+    .query(
+      `UPDATE articles SET votes = votes + $1 
     WHERE article_id = $2 RETURNING *;`,
-    [inc_votes, articleId]
+      [inc_votes, articleId]
     )
     .then((result) => {
       if (result.rows.length === 0) {

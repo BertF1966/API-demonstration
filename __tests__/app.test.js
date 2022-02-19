@@ -93,6 +93,7 @@ describe("PATCH api/articles/article_id", () => {
       .send({ inc_votes: 50 })
       .expect(200)
       .then(({ body: { article } }) => {
+        console.log(article);
         expect(article).toEqual(
           expect.objectContaining({
             author: expect.any(String),
@@ -315,10 +316,68 @@ describe("GET api/articles (comment count)", () => {
               body: expect.any(String),
               created_at: expect.any(String),
               votes: expect.any(Number),
-              comment_count: expect.any(String)
+              comment_count: expect.any(String),
             })
           );
         });
       });
   });
 });
+
+describe("POST api/articles/article_id/comment", () => {
+  test.only("status 201 - responds with comment accepted", () => {
+    return request(app)
+      .post("/api/articles/3/comments")
+      .send({ author: "Bert", body: "Test comment" })
+      .expect(201)
+      .then(({ body: { comments } }) => {
+        console.log(comment);
+
+        expect(comments).toEqual(
+          expect.objectContaining({
+            body: expect.any(String),
+            votes: 50,
+            author: expect.any(String),
+            article_id: 3,
+            created_at: expect.any(String),
+          })
+        );
+      });
+  });
+  test("status 400 - responds with bad request when not receiving correctly formatted object", () => {
+    return request(app)
+      .post("/api/articles/3/comments")
+      .send({ author: 3, body: "bad request test" })
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("bad request");
+      });
+  });
+  test("status 400 - responds with bad request when not receiving correctly formatted object", () => {
+    return request(app)
+      .patch("/api/articles/3/comments")
+      .send({ test: "wrong key test", body: "wrong key bad request" })
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("bad request");
+      });
+  });
+  test("status 404 - responds with not found if article does not exist", () => {
+    return request(app)
+      .patch("/api/articles/9999/comments")
+      .send({ author: "Bert", body: "Test comment" })
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Article not found");
+      });
+  });
+});
+test("status 404 - responds with path not found for incorrect path", () => {
+  return request(app)
+    .get("/api/articles/3/comment")
+    .expect(404)
+    .then(({ body: { msg } }) => {
+      expect(msg).toBe("Path not found");
+    });
+});
+
