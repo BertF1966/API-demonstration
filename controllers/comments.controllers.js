@@ -1,9 +1,10 @@
 const {fetchComments} = require('../models/comments.models')
 
 exports.getComments = (req, res, next) => {
-    fetchComments()
-    .then(() => {
-
+    const {article_id: articleId} = req.params;
+    fetchComments(articleId)
+    .then((comments) => {
+        res.status(200).send({comments})
     })
     .catch((err) => {
         next(err);
