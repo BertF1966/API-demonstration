@@ -324,8 +324,8 @@ describe("GET api/articles (comment count)", () => {
   });
 });
 
-describe("POST api/articles/article_id/comment", () => {
-  test.only("status 201 - responds with comment accepted", () => {
+describe.skip("POST api/articles/article_id/comment", () => {
+  test("status 201 - responds with comment accepted", () => {
     return request(app)
       .post("/api/articles/3/comments")
       .send({ author: "Bert", body: "Test comment" })
@@ -381,3 +381,44 @@ test("status 404 - responds with path not found for incorrect path", () => {
     });
 });
 
+describe.skip("GET api/articles/(queries)", () => {
+  test("status 200 - responds with table sorted by query requests", () => {
+    return request(app)
+      .get("/api/articles?topic")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        console.log(articles);
+        articles.forEach((article) => {
+          expect(article).toEqual(
+            expect.objectContaining({
+              article_id: expect.any(Number),
+              title: expect.any(String),
+              topic: expect.any(String),
+              author: expect.any(String),
+              body: expect.any(String),
+              created_at: expect.any(String),
+              votes: expect.any(Number),
+              comment_count: expect.any(String),
+            })
+          );
+        });
+      });
+  });
+});
+
+describe.skip("DELETE api/comments/:comment_id", () => {
+  test("status 204 - responds with no content", () => {
+    return request(app)
+      .delete("/api/comments/3")
+      .expect(204)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe('no content');
+      });
+  });
+});
+
+describe.skip('GET api', () => {
+  test('status 200 - responds with JSON describing all the endpoints available on this api ', () => {
+
+  })
+});

@@ -1,8 +1,5 @@
 \c nc_news_test
 
+-- SELECT articles.*, COUNT(comments.article_id) AS comment_count FROM articles LEFT JOIN comments ON articles.article_id = comments.article_id GROUP BY articles.article_id ORDER BY topic DESC;
 
-SELECT articles.author, articles.body, articles.article_id, articles.created_at, articles.votes FROM articles 
-
-LEFT JOIN comments ON articles.article_id = comments.article_id 
-
-WHERE articles.article_id = $1 GROUP BY articles.article_id;, [article_id];
+SELECT * FROM comments;
