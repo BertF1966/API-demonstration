@@ -133,30 +133,30 @@ describe("PATCH api/articles/article_id", () => {
         expect(msg).toBe("Article not found");
       });
   });
-});
-test("status 404 - responds with path not found for incorrect path", () => {
-  return request(app)
-    .get("/api/articlez")
-    .expect(404)
-    .then(({ body: { msg } }) => {
-      expect(msg).toBe("Path not found");
-    });
-});
-test("status 400 - responds with bad request for invalid article ID", () => {
-  return request(app)
-    .get("/api/articles/q")
-    .expect(400)
-    .then(({ body: { msg } }) => {
-      expect(msg).toBe("bad request");
-    });
-});
-test("status 404 - for valid search but non existent article", () => {
-  return request(app)
-    .get("/api/articles/9999")
-    .expect(404)
-    .then(({ body: { msg } }) => {
-      expect(msg).toBe("Article not found");
-    });
+  test("status 404 - responds with path not found for incorrect path", () => {
+    return request(app)
+      .get("/api/articlez")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Path not found");
+      });
+  });
+  test("status 400 - responds with bad request for invalid article ID", () => {
+    return request(app)
+      .get("/api/articles/q")
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("bad request");
+      });
+  });
+  test("status 404 - for valid search but non existent article", () => {
+    return request(app)
+      .get("/api/articles/9999")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Article not found");
+      });
+  });
 });
 
 describe("GET api/users", () => {
@@ -324,16 +324,14 @@ describe("GET api/articles (comment count)", () => {
   });
 });
 
-describe.skip("POST api/articles/article_id/comment", () => {
-  test("status 201 - responds with comment accepted", () => {
+describe("POST api/articles/article_id/comment", () => {
+  test.only("status 201 - responds with comment accepted", () => {
     return request(app)
       .post("/api/articles/3/comments")
-      .send({ author: "Bert", body: "Test comment" })
+      .send({ username: "butter_bridge", body: "Test comment" })
       .expect(201)
-      .then(({ body: { comments } }) => {
-        console.log(comment);
-
-        expect(comments).toEqual(
+      .then(({ body: { comment } }) => {
+        expect(comment).toEqual(
           expect.objectContaining({
             body: expect.any(String),
             votes: 50,
@@ -371,14 +369,14 @@ describe.skip("POST api/articles/article_id/comment", () => {
         expect(msg).toBe("Article not found");
       });
   });
-});
-test("status 404 - responds with path not found for incorrect path", () => {
-  return request(app)
-    .get("/api/articles/3/comment")
-    .expect(404)
-    .then(({ body: { msg } }) => {
-      expect(msg).toBe("Path not found");
-    });
+  test("status 404 - responds with path not found for incorrect path", () => {
+    return request(app)
+      .get("/api/articles/3/comment")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Path not found");
+      });
+  });
 });
 
 describe.skip("GET api/articles/(queries)", () => {
@@ -412,13 +410,11 @@ describe.skip("DELETE api/comments/:comment_id", () => {
       .delete("/api/comments/3")
       .expect(204)
       .then(({ body: { msg } }) => {
-        expect(msg).toBe('no content');
+        expect(msg).toBe("no content");
       });
   });
 });
 
-describe.skip('GET api', () => {
-  test('status 200 - responds with JSON describing all the endpoints available on this api ', () => {
-
-  })
+describe.skip("GET api", () => {
+  test("status 200 - responds with JSON describing all the endpoints available on this api ", () => {});
 });

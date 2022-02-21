@@ -1,21 +1,22 @@
 const { db } = require("../db/connection");
 
-exports.addComments = (articleId, author, body) => {
-
+exports.addComments = (body, username, article_id,) => {
+    console.log(body, username, article_id,)
+    console.log('in model before .query')
     return db
     .query(
-        `INSERT INTO comments (articleId, author, body) 
-        VALUES 
-        ($1, $2, $3) RETURNING *;`,
-        [articleId, author, body]
+        `INSERT INTO comments (body, author, article_id,) 
+        VALUES ($1, $2, $3) RETURNING *;`,
+        [body, username, article_id,]
         )
         .then(({rows}) => {
             if (rows.length === 0) {
                 return Promise.reject({ status: 404, msg: "Article not found" });
             }
-            // console.log(rows);
+            console.log(rows);
             return rows;
         });
+
     };
 
 
