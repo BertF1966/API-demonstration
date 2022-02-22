@@ -1,5 +1,6 @@
+
 exports.handlePsqlErrors = (err, req, res, next) => {
-  console.log(err)
+  console.log(err.code)
   if (err.code === "22P02" || err.code === "23502") {
     res.status(400).send({ msg: "bad request" });
   } else {
@@ -14,3 +15,11 @@ exports.handleCustomErrors = (err, req, res, next) => {
     next(err);
   }
 };
+
+// exports.handlePsqlTableErrors = (err, req, res, next) => {
+//   if (err.code === '23503') {
+//     res.status(404).send({ msg: 'Article not found' });
+//   } else {
+//     next(err);
+//   }
+// };

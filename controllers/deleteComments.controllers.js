@@ -4,10 +4,10 @@ exports.deleteComments = (req, res, next) => {
     const {comment_id: commentId} = req.params;
     console.log(commentId)
   fetchComments(commentId)
-    .then(() => {
-        res.status(204).send({msg: 'no content'})
-    })
+    .then(({msg}) => {
+        console.log(msg)
     .catch((err) => {
       next(err);
     });
+  })
 };
