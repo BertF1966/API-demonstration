@@ -380,10 +380,10 @@ describe("POST api/articles/article_id/comment", () => {
   });
 });
 
-describe.skip("GET api/articles/(queries)", () => {
+describe("GET api/articles/(queries)", () => {
   test.only("status 200 - responds with table sorted by query requests", () => {
     return request(app)
-      .get("/api/articles")
+      .get("/api/articles/?sort_by=topic&order=asc")
       .expect(200)
       .then(({ body: { articles } }) => {
         articles.forEach((article) => {
