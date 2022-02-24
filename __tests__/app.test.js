@@ -345,10 +345,10 @@ describe("POST api/articles/article_id/comment", () => {
   test("status 400 - responds with bad request when not receiving correctly formatted object", () => {
     return request(app)
       .post("/api/articles/3/comments")
-      .send({ author: 'butter_bridge', body: "bad request test" })
+      .send({ author: "butter_bridge", body: "bad request test" })
       .expect(400)
       .then(({ body: { msg } }) => {
-        console.log(msg)
+        console.log(msg);
         expect(msg).toBe("bad request");
       });
   });
@@ -383,23 +383,12 @@ describe("POST api/articles/article_id/comment", () => {
 describe("GET api/articles/(queries)", () => {
   test.only("status 200 - responds with table sorted by query requests", () => {
     return request(app)
-      .get("/api/articles/?sort_by=topic&order=asc")
+      .get("/api/articles?sort_by=title&order=desc&filter=mitch")
       .expect(200)
       .then(({ body: { articles } }) => {
-        articles.forEach((article) => {
-          expect(article).toEqual(
-            expect.objectContaining({
-              article_id: expect.any(Number),
-              title: expect.any(String),
-              topic: expect.any(String),
-              author: expect.any(String),
-              body: expect.any(String),
-              created_at: expect.any(String),
-              votes: expect.any(Number),
-              comment_count: expect.any(String),
-            })
-          );
-        });
+        expect(articles).toBeSortedBy('title', {
+          descending: true
+        })
       });
   });
 });
