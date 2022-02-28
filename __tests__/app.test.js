@@ -93,7 +93,6 @@ describe("PATCH api/articles/article_id", () => {
       .send({ inc_votes: 50 })
       .expect(200)
       .then(({ body: { article } }) => {
-        console.log(article);
         expect(article).toEqual(
           expect.objectContaining({
             author: expect.any(String),
@@ -194,7 +193,7 @@ describe("GET api/users", () => {
   });
 });
 
-describe("GET api/articles", () => {
+describe.skip("GET api/articles", () => {
   test("status 200 - responds with an array of test objects", () => {
     return request(app)
       .get("/api/articles")
@@ -300,7 +299,7 @@ describe("GET api/articles/article_id/comments", () => {
   });
 });
 
-describe("GET api/articles (comment count)", () => {
+describe.skip("GET api/articles (comment count)", () => {
   test("status 200 - responds with array of objects with the added comment_count row", () => {
     return request(app)
       .get("/api/articles")
@@ -348,7 +347,6 @@ describe("POST api/articles/article_id/comment", () => {
       .send({ author: "butter_bridge", body: "bad request test" })
       .expect(400)
       .then(({ body: { msg } }) => {
-        console.log(msg);
         expect(msg).toBe("bad request");
       });
   });
@@ -361,9 +359,9 @@ describe("POST api/articles/article_id/comment", () => {
         expect(msg).toBe("bad request");
       });
   });
-  test.skip("status 404 - responds with not found if article does not exist", () => {
+  test("status 404 - responds with not found if article does not exist", () => {
     return request(app)
-      .post("/api/articles/9999/comments")
+      .post("/api/articles/99999/comments")
       .send({ username: "butter_bridge", body: "Test comment" })
       .expect(404)
       .then(({ body: { msg } }) => {
@@ -381,9 +379,9 @@ describe("POST api/articles/article_id/comment", () => {
 });
 
 describe("GET api/articles/(queries)", () => {
-  test.only("status 200 - responds with table sorted by query requests", () => {
+  test("status 200 - responds with table sorted by query requests", () => {
     return request(app)
-      .get("/api/articles?sort_by=title&order=desc&filter=mitch")
+      .get("/api/articles?sort_by=title&order=desc&topic=mitch")
       .expect(200)
       .then(({ body: { articles } }) => {
         expect(articles).toBeSortedBy('title', {
@@ -393,10 +391,10 @@ describe("GET api/articles/(queries)", () => {
   });
 });
 
-describe.skip("DELETE api/comments/:comment_id", () => {
-  test.only("status 204 - responds with no content", () => {
+describe.only("DELETE api/comments/:comment_id", () => {
+  test("status 204 - responds with no content", () => {
     return request(app)
-      .delete("/api/comments/3")
+      .delete("/api/comments/1")
       .expect(204)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("no content");

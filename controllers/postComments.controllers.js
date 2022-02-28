@@ -5,7 +5,6 @@ exports.postComments = (req, res, next) => {
   const { username, body} = req.body;
   addComments(body, username, article_id)
     .then((comment) => {
-      // console.log(comment)
       res.status(201).send({ comment });
     })
     .catch((err) => {
