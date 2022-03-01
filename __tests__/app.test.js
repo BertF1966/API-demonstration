@@ -193,7 +193,7 @@ describe("GET api/users", () => {
   });
 });
 
-describe.skip("GET api/articles", () => {
+describe("GET api/articles", () => {
   test("status 200 - responds with an array of test objects", () => {
     return request(app)
       .get("/api/articles")
@@ -299,7 +299,7 @@ describe("GET api/articles/article_id/comments", () => {
   });
 });
 
-describe.skip("GET api/articles (comment count)", () => {
+describe("GET api/articles (comment count)", () => {
   test("status 200 - responds with array of objects with the added comment_count row", () => {
     return request(app)
       .get("/api/articles")
