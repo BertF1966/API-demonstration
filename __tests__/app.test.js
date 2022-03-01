@@ -391,7 +391,7 @@ describe("GET api/articles/(queries)", () => {
   });
 });
 
-describe.only("DELETE api/comments/:comment_id", () => {
+describe.skip("DELETE api/comments/:comment_id", () => {
   test("status 204 - responds with no content", () => {
     return request(app)
       .delete("/api/comments/1")
