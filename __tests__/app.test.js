@@ -381,27 +381,23 @@ describe("POST api/articles/article_id/comment", () => {
 describe("GET api/articles/(queries)", () => {
   test("status 200 - responds with table sorted by query requests", () => {
     return request(app)
-      .get("/api/articles?sort_by=title&order=desc&topic=mitch")
+      .get("/api/articles?sort_by=title&order=desc&topic=cats")
       .expect(200)
       .then(({ body: { articles } }) => {
-        expect(articles).toBeSortedBy('title', {
-          descending: true
-        })
+        expect(articles).toBeSortedBy("title", {
+          descending: true,
+        });
+        expect(articles).toHaveLength(1);
       });
   });
 });
 
-describe.skip("DELETE api/comments/:comment_id", () => {
+describe("DELETE api/comments/:comment_id", () => {
   test("status 204 - responds with no content", () => {
-    return request(app)
-      .delete("/api/comments/1")
-      .expect(204)
-      .then(({ body: { msg } }) => {
-        expect(msg).toBe("no content");
-      });
+    return request(app).delete("/api/comments/2").expect(204);
   });
 });
 
-describe.skip("GET api", () => {
+describe("GET api", () => {
   test("status 200 - responds with JSON describing all the endpoints available on this api ", () => {});
 });
