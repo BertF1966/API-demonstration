@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require("express");
 const { getApi } = require("./controllers/getApi.controllers");
 const { getTopics } = require("./controllers/topics.controllers");
@@ -9,7 +10,6 @@ const { getComments } = require("./controllers/comments.controllers");
 const { postComments } = require("./controllers/postComments.controllers");
 const { deleteComments } = require("./controllers/deleteComments.controllers");
 
-const cors = require('cors');
 
 const { handlePsqlErrors, handleCustomErrors, handlePsqlTableErrors } = require("./errors");
 const app = express();
