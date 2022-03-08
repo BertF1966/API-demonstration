@@ -1,7 +1,6 @@
 const db = require("../db/connection");
 
 exports.fetchArticles = (sortBy = 'created_at', order = 'asc', topic) => {
-  console.log(sortBy, order, topic)
   
   let queryString = `SELECT articles.*, COUNT(comments.article_id) AS comment_count FROM articles LEFT JOIN comments ON articles.article_id = comments.article_id `
   const topicArray = [];
