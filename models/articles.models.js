@@ -9,7 +9,7 @@ exports.fetchArticles = (sortBy = 'created_at', order = 'asc', topic) => {
     topicArray.push(topic); 
   }
     
-    queryString += `GROUP BY articles.article_id ORDER BY ${sortBy} ${order};`
+    queryString += `GROUP BY articles.article_id ORDER BY ${sortBy} [ASC | DESC];`
   
   return db
     .query(queryString, topicArray)

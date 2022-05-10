@@ -394,8 +394,10 @@ describe("GET api/articles/(queries)", () => {
 
 describe("DELETE api/comments/:comment_id", () => {
   test("status 204 - responds with no content", () => {
-    return request(app).delete("/api/comments/2").expect(204);
-  });
+    return request(app)
+    .delete("/api/comments/25")
+    .expect(204);
+  })
 });
 
 describe("GET api", () => {
