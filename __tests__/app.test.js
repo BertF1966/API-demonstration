@@ -193,6 +193,25 @@ describe("GET api/users", () => {
   });
 });
 
+describe("GET api/users/:username", () => {
+  test("status 200 - responds with a user object", () => {
+    return request(app)
+      .get("/api/users/butter_bridge")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.user.username).toEqual('butter_bridge');
+      });
+  });
+  test("status 404 - responds with path not found for incorrect path", () => {
+    return request(app)
+      .get("/api/user/butter_bridge")
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("Path not found");
+      });
+  });
+});
+
 describe("GET api/articles", () => {
   test("status 200 - responds with an array of test objects", () => {
     return request(app)
@@ -255,7 +274,7 @@ describe("GET api/articles/:article_id (comment count)", () => {
 });
 
 describe("GET api/articles/article_id/comments", () => {
-  test   ("status 200 - responds with an array of objects", () => {
+  test("status 200 - responds with an array of objects", () => {
     return request(app)
       .get("/api/articles/1/comments")
       .expect(200)
@@ -394,10 +413,8 @@ describe("GET api/articles/(queries)", () => {
 
 describe("DELETE api/comments/:comment_id", () => {
   test("status 204 - responds with no content", () => {
-    return request(app)
-    .delete("/api/comments/25")
-    .expect(204);
-  })
+    return request(app).delete("/api/comments/25").expect(204);
+  });
 });
 
 describe("GET api", () => {

@@ -1,3 +1,3 @@
 \c nc_news_test
 
-DELETE FROM comments WHERE comments.comment_id = 2 RETURNING *;
+SELECT * FROM users WHERE users.username = username;

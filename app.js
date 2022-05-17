@@ -9,6 +9,7 @@ const { getArticleById } = require("./controllers/articleId.controllers");
 const { getArticles } = require("./controllers/articles.controllers");
 const { patchArticles } = require("./controllers/patches.controllers");
 const { getUsers } = require("./controllers/users.controllers");
+const { getUsername } = require("./controllers/username.controllers");
 const { getComments } = require("./controllers/comments.controllers");
 const { postComments } = require("./controllers/postComments.controllers");
 const { deleteComments } = require("./controllers/deleteComments.controllers");
@@ -19,11 +20,13 @@ const { handlePsqlErrors, handleCustomErrors, handlePsqlTableErrors } = require(
 
 app.use(express.json());
 
-app.get('/api', getApi);
+app.get("/api", getApi);
 
 app.get("/api/topics", getTopics);
 
 app.get("/api/users", getUsers);
+
+app.get("/api/users/:username", getUsername);
 
 app.get("/api/articles", getArticles);
 
