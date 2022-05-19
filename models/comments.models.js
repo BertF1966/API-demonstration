@@ -8,7 +8,6 @@ exports.fetchComments = (articleId) => {
     GROUP BY comments.comment_id
     ORDER BY comments.created_at DESC;`, [articleId])
     .then(({rows}) => {
-        console.log(rows)
         if (rows.length === 0) {
         return Promise.reject({ status: 404, msg: "Article not found" });
             
