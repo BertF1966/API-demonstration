@@ -13,7 +13,7 @@ git clone https://github.com/BertF1966/API-demonstration.git
 
 You will need to cd into this folder, run the command `psql -f ./db/setup.sql` to run the table setup file. Then run `node ./db/seeds/run-seed.js` to seed the data tables.
 
-Then type the command `heroku open`. A browser will now open with the API ready to receive URL endpath commands. Add `/API` to the URL then e.g. `/users` to display data table information.
+Then type the command `heroku open`. A browser will now open with the API ready to receive URL endpath commands. Add `/api` to the URL then e.g. `/users` to display data table information.
 
 
 
